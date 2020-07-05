@@ -33,6 +33,7 @@ enum BOARD_TYPE {
     SPRINT = 4
 }
 
+
 export class Constants {
     static BAll_STATE = BAll_STATE;
     static EVENT_NAME = EVENT_NAME;
