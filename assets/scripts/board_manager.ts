@@ -1,7 +1,9 @@
-import { _decorator, Component, Node, Prefab, instantiate, Vec3, random } from "cc";
+import { _decorator, Component, Node, Prefab, instantiate, Vec3, random, CCObject } from "cc";
 import { Constants } from "./data/constants";
 import { Board } from "./board";
 import { utils } from "./utils/utils";
+import { PoolManager } from "./pool_manager";
+import { boardFactory } from "./board/board_factory";
 
 
 const { ccclass, property } = _decorator;
@@ -12,30 +14,29 @@ const { ccclass, property } = _decorator;
 @ccclass("BoardManager")
 export class BoardManager extends Component {
 
-    @property(Prefab)
-    boardPrefab_: Prefab = null;
-
     /** 跳板列表 */
-    boardList_: Board[] = [];
+     boardList_: Node[] = [];
 
+    @property(boardFactory)
+    boardFactory: boardFactory = null;
+    
     curBoard: Board = null;
 
     onLoad() {
         let pos = Constants.BOARD_INIT_POS.clone();
         for (let i = 0; i < Constants.BOARD_NUM; ++i) {
-            let board_prefab = instantiate(this.boardPrefab_) as Node;
-            board_prefab.parent = this.node.parent;
-            let board = board_prefab.getComponent(Board);
-            board.reset(pos);
-            this.boardList_.push(board);
-            pos = this.get_next_board(board, 1);
+            let boardNode = this.boardFactory.create_board(Constants.BOARD_TYPE.NORMAL, pos, 0);
+            boardNode.parent = this.node.parent;
+            boardNode.setPosition(pos);
+            this.boardList_.push(boardNode);
+            pos = this.get_next_board(boardNode, 1);
         }
     }
 
     /** 重现开始游戏 */
-    // reset() {
+    reset() {
 
-    // }
+    }
 
     /** 复活 */
     revive() {
@@ -44,12 +45,12 @@ export class BoardManager extends Component {
 
     /** 
      * 下一跳板位置 
-     * @param {Board} board - 跳板
+     * @param {Node} boardNode - 跳板
      * @param {number} diff - 难度
      * @returns {Vec3}
      */
-    get_next_board(board: Board, diff: number) {
-        let pos = board.node.position.clone();
+    get_next_board(boardNode: Node, diff: number) {
+        let pos = boardNode.position.clone();
         let o = utils.getDiffCoeff(diff, 1, 2);
         pos.x = (Math.random() - 0.5) * Constants.SCENE_MAX_OFFSET_X * o;
         pos.y += Constants.BOARD_GAP;
@@ -61,7 +62,7 @@ export class BoardManager extends Component {
         return this.boardList_.length;
     }
 
-    /** @returns {Board} */
+    /** @returns {Node} */
     get_board_list_by_idx(idx){
         return this.boardList_[idx];
     }

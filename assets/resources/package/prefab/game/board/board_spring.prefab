@@ -205,6 +205,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "wavePrefab": {
+      "__uuid__": "05614fd6-8cc5-4b16-9c02-e3f4a6ff6037"
+    },
     "_id": ""
   },
   {

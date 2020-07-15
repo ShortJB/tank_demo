@@ -8,5 +8,7 @@ const { ccclass, property } = _decorator;
  */
 @ccclass("BoardNormal")
 export class BoardNormal extends BoardBasic {
-    type = Constants.BOARD_TYPE.NORMAL;
+    onLoad() {
+        
+    }
 }

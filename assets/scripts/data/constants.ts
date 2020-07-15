@@ -89,4 +89,12 @@ export class Constants {
     /** @property {number} - 板撞击特效帧数 */
     static BOARD_BUMP_FRAMES = 10;
     static BOARD_BUMP_STEP = [-0.15, -0.1, -0.07, -0.02, -0.003, 0.003, 0.02, 0.07, 0.1, 0.15];
+    /** @property {number} Constants.BOARD_WAVE_FRAMES - 板子波动帧率 */
+    static BOARD_WAVE_FRAMES = 16;
+
+    static WAVE_OFFSET_Y = 0.13 / 2;
+    static BOARD_WAVE_INNER_START_FRAMES = 8;
+    static BOARD_WAVE_INNER_STEP = 0.12 * 2;
+    static BOARD_WAVE_STEP = 0.15 * 15;
+
 }

@@ -1,20 +1,20 @@
 import { _decorator, Component, Node } from "cc";
+import { BoardBasic } from "./board_basic";
 const { ccclass, property } = _decorator;
 
-@ccclass("board_spring")
-export class board_spring extends Component {
-    /* class member could be defined like this */
-    // dummy = '';
 
-    /* use `property` decorator if your want the member to be serializable */
-    // @property
-    // serializableDummy = 0;
+/**
+ * @description 弹簧跳板
+ */
 
-    start () {
-        // Your initialization goes here.
+@ccclass("BoardSpring")
+export class BoardSpring extends BoardBasic {
+    onLoad() {
+        
     }
 
-    // update (deltaTime: number) {
-    //     // Your update function goes here.
-    // }
+    update(dt) {
+        super.update(dt);
+        
+    }
 }

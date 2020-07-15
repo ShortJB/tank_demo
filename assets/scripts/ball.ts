@@ -2,6 +2,7 @@ import { _decorator, Component, Node, Enum, Vec3, math } from "cc";
 import { Constants } from "./data/constants";
 import { CustomEventListener } from "./listener/custom_event_listener";
 import { Board } from "./board";
+import { BoardBasic } from "./board/board_basic";
 
 const { ccclass, property } = _decorator;
 
@@ -64,14 +65,19 @@ export class Ball extends Component {
         // 下落的时候检测小球是否落在板上 
         const board_count = Constants.game.boardManager.get_board_list_count();
         for (let i = 0; i < board_count; ++i) {
-            /** @type {Board} */
+            /** @type {Node} */
             let board = Constants.game.boardManager.get_board_list_by_idx(i);
-            let x = Math.abs(this.node.position.x - board.node.position.x);
-            let y = this.node.position.y - board.node.position.y
+            let x = Math.abs(this.node.position.x - board.position.x);
+            let y = this.node.position.y - board.position.y
+            //let type = board.boardType;
+            let board2 = board.getComponent(BoardBasic);
             // 落在板上了
-            if (x <= board.get_radius()) {
-                if (y >= 0 && y <= (Constants.BALL_RADIUS + board.getHeight() / 2)) {
+            if (x <= board2.get_radius()) {
+                if (y >= 0 && y <= (Constants.BALL_RADIUS + board2.getHeight() / 2)) {
                     this.change_state(Constants.BAll_STATE.JUMPUP);
+                    // 板子
+                    board2.setBump();
+                    board2.setWave();
                 }
             }
         }

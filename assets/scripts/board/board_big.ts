@@ -8,13 +8,8 @@ const { ccclass, property } = _decorator;
  */
 @ccclass("BoardBig")
 export class BoardBig extends BoardBasic {
-    type = Constants.BOARD_TYPE.BIG;
-
-    // get_type() {
-    //     return Constants.BOARD_TYPE.BIG;
-    // }
     onLoad(){
-        // todo要缩放？？
+        
     }
 
     get_radius() {

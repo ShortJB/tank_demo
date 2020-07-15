@@ -12,6 +12,12 @@ export class PoolManager {
         return this.Instance_;
     }
 
+    /**
+     * 
+     * @param prefab 
+     * @param parent 
+     * @returns Node
+     */
     get_node(prefab: Prefab, parent: Node) {
         let name = prefab.data.name;
         let node: Node = undefined;
