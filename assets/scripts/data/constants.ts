@@ -97,4 +97,7 @@ export class Constants {
     static BOARD_WAVE_INNER_STEP = 0.12 * 2;
     static BOARD_WAVE_STEP = 0.15 * 15;
 
+    /** @property {number} Constants.COEFF_POS_BALL */
+    static COEFF_POS_BALL = 8 / 360;
+
 }

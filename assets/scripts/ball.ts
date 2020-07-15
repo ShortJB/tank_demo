@@ -82,12 +82,7 @@ export class Ball extends Component {
             }
         }
     }
-
-    
-
 }
-
-
 
 /** 
  * 抽象类: abstract 修饰， 里面可以没有抽象方法。但有抽象方法(abstract method)的类必须声明为抽象类(abstract class)
