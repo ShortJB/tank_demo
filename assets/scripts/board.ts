@@ -5,8 +5,7 @@ const { ccclass, property } = _decorator;
 @ccclass("Board")
 export class Board extends Component {
     /** 类型 */
-    type_:number = Constants.BOARD_TYPE.NORMAL;
-
+    type_: number = Constants.BOARD_TYPE.NORMAL;
     start() {
         // Your initialization goes here.
     }
@@ -17,7 +16,7 @@ export class Board extends Component {
 
     /** 跳板的半径 */
     get_radius() {
-        return this.type_ === Constants.BOARD_TYPE.BIG ? Constants.BOARD_RADIUS * Constants.BOARD_RADIUS_SCALE_GIANT: Constants.BOARD_RADIUS;
+        return this.type_ === Constants.BOARD_TYPE.BIG ? Constants.BOARD_RADIUS * Constants.BOARD_RADIUS_SCALE_GIANT : Constants.BOARD_RADIUS;
     }
 
     /** 跳板的厚度 */
@@ -32,6 +31,8 @@ export class Board extends Component {
     get_type() {
         return this.type_;
     }
-    
-    
+
+    update() {
+        
+    }
 }

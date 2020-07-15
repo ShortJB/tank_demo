@@ -22,7 +22,7 @@ export class CameraManager extends Component {
 
     start() {
         this.target_pos_.set(Constants.CAMERA_INIT_POS);
-        this.set_position(this.target_pos_);
+        this.set_plane_position(this.target_pos_);
         this.node.eulerAngles = Constants.CAMERA_INIT_ROT;
     }
 
@@ -32,7 +32,7 @@ export class CameraManager extends Component {
 
     reset() {
         this.target_pos_.set(Constants.CAMERA_INIT_POS);
-        this.set_position(this.target_pos_);
+        this.set_plane_position(this.target_pos_);
     }
 
     /** 
@@ -45,13 +45,17 @@ export class CameraManager extends Component {
         this.target_pos_.x = pos.x;
     }
 
+    /**
+     * 
+     * @param type 
+     */
     set_target_pos_Y(type: number) {
         let pos = Constants.game.boardManager.curBoard.node.position.clone();
         pos.y += Constants.CAMERA_OFFSET_Y;
         this.target_pos_.y = pos.y;
     }
 
-    /** 移动到目标位置 */
+    /** 移动到目标位置（当前板子的上方10像素处） */
     update(deltaTime: number) {
         kTempPos.set(this.node.position);
         if (kTempPos.x === this.target_pos_.x && kTempPos.y === this.target_pos_.y) {
@@ -59,26 +63,27 @@ export class CameraManager extends Component {
         }
 
         // 纠正偏差
-        if (Math.abs(kTempPos.x - this.target_pos_.x) <= Constants.CAMERA_MOVE_X_FRAMES) {
+        if (Math.abs(kTempPos.x - this.target_pos_.x) <= Constants.CAMERA_MOVE_MINI_ERR) {
             kTempPos.x = this.target_pos_.x;
-            this.set_position(kTempPos);
+            this.set_plane_position(kTempPos);
         } else {
             kTempPos.x += 1 / Constants.CAMERA_MOVE_X_FRAMES;
-            this.set_position(kTempPos);
+            this.set_plane_position(kTempPos);
         }
 
-        if (Math.abs(kTempPos.y - this.target_pos_.y) <= Constants.CAMERA_MOVE_X_FRAMES) {
+        if (Math.abs(kTempPos.y - this.target_pos_.y) <= Constants.CAMERA_MOVE_MINI_ERR) {
             kTempPos.y = this.target_pos_.y;
-            this.set_position(kTempPos);
+            this.set_plane_position(kTempPos);
         } else {
             kTempPos.y += 1 / Constants.CAMERA_MOVE_Y_FRAMES;
-            this.set_position(kTempPos);
+            this.set_plane_position(kTempPos);
         }
 
 
     }
 
-    set_position(pos: Vec3) {
+    /**更新背景位置（背景在相机下方27像素处） */
+    set_plane_position(pos: Vec3) {
         this.node.setPosition(pos);
         // 移动背景背景
         const y = pos.y - Constants.CAMERA_BG_OFFSET_Y

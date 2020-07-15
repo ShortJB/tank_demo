@@ -84,5 +84,9 @@ export class Constants {
 
     /** @property {number} Constants.BOARD_HEIGTH_SCALE_DROP - 掉落板厚度缩放比例 */
     static BOARD_HEIGTH_SCALE_DROP = 0.5;
-
+    /** @property {number} Constants.BOARD_MOVING_STEP - 移动板移动速度 */
+    static BOARD_MOVING_STEP = 0.03;
+    /** @property {number} - 板撞击特效帧数 */
+    static BOARD_BUMP_FRAMES = 10;
+    static BOARD_BUMP_STEP = [-0.15, -0.1, -0.07, -0.02, -0.003, 0.003, 0.02, 0.07, 0.1, 0.15];
 }

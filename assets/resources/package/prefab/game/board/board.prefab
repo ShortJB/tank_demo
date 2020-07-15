@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "board_normal",
+    "_name": "board",
     "_objFlags": 0,
     "_parent": null,
     "_children": [

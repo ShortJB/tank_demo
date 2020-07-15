@@ -33,9 +33,9 @@ export class BoardManager extends Component {
     }
 
     /** 重现开始游戏 */
-    reset() {
+    // reset() {
 
-    }
+    // }
 
     /** 复活 */
     revive() {

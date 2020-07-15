@@ -9,9 +9,4 @@ const { ccclass, property } = _decorator;
 @ccclass("BoardNormal")
 export class BoardNormal extends BoardBasic {
     type = Constants.BOARD_TYPE.NORMAL;
-    // get_type() {
-    //     return this.type;
-    // }
-
-    
 }
