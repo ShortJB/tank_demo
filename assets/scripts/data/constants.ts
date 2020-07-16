@@ -46,7 +46,7 @@ export class Constants {
     /** @property {number} - 跳板的厚度 */
     static BOARD_HEIGTH = 0.25;
     /** @property {number} - 跳板初始化个数 */
-    static BOARD_NUM = 1;
+    static BOARD_NUM = 6;
     /** @property {number} Constants.BOARD_GAP - 正常板间隔高度 */
     static BOARD_GAP = 4.3;
     /** @property {number} Constants.SCENE_MAX_OFFSET_X - 小球最大横向移动距离 */
@@ -115,6 +115,9 @@ export class Constants {
     static SPRING_HELIX_STEP_SPIRNT = 1.2;
     static SPRING_TOP_STEP = 0.25;
     static SPRING_TOP_STEP_SPRINT = 0.5;
+
+    /** @property {number} Constants.BOARD_NEW_INDEX - 每次新增两个跳板 */
+    static BOARD_NEW_INDEX = 2;
 
 
 }

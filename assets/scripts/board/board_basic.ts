@@ -31,7 +31,7 @@ export class BoardBasic extends Component {
         this.initWave();
     }
 
-    reuse(factory: boardFactory, board_type: number, pos: Vec3, level: number) {
+    reuse(factory: boardFactory, board_type: number, level: number) {
         this.boardType = board_type;
         // 按概率来决定是否是移动板
         if (this.boardType === Constants.BOARD_TYPE.NORMAL || this.boardType === Constants.BOARD_TYPE.DROP || this.boardType === Constants.BOARD_TYPE.SPRING) {

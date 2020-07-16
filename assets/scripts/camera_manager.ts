@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, Prefab } from "cc";
+import { _decorator, Component, Node, Vec3, Prefab, CCObject } from "cc";
 import { Constants } from "./data/constants";
 const { ccclass, property } = _decorator;
 
@@ -37,22 +37,18 @@ export class CameraManager extends Component {
 
     /** 
      * 设置目标x轴
-     * @param {number} x - 目标x轴
-     * @param {number} type - 板的类型
+     * @param {number} x 
      */
-    set_target_pos_X(type) {
-        let pos = Constants.game.boardManager.curBoard.node.position.clone();
-        this.target_pos_.x = pos.x;
+    set_target_pos_X(x) {
+        this.target_pos_.x = x;
     }
 
     /**
      * 
-     * @param type 
+     * @param {number} y 
      */
-    set_target_pos_Y(type: number) {
-        let pos = Constants.game.boardManager.curBoard.node.position.clone();
-        pos.y += Constants.CAMERA_OFFSET_Y;
-        this.target_pos_.y = pos.y;
+    set_target_pos_Y(y) {
+        this.target_pos_.y = y;
     }
 
     /** 移动到目标位置（当前板子的上方10像素处） */
@@ -67,7 +63,8 @@ export class CameraManager extends Component {
             kTempPos.x = this.target_pos_.x;
             this.set_plane_position(kTempPos);
         } else {
-            kTempPos.x += 1 / Constants.CAMERA_MOVE_X_FRAMES;
+            let offset = this.target_pos_.x - kTempPos.x;
+            kTempPos.x += offset * 1 / Constants.CAMERA_MOVE_X_FRAMES;
             this.set_plane_position(kTempPos);
         }
 
@@ -75,7 +72,8 @@ export class CameraManager extends Component {
             kTempPos.y = this.target_pos_.y;
             this.set_plane_position(kTempPos);
         } else {
-            kTempPos.y += 1 / Constants.CAMERA_MOVE_Y_FRAMES;
+            const y = this.target_pos_.y - kTempPos.y;
+            kTempPos.y += (y * (1 / Constants.CAMERA_MOVE_Y_FRAMES));
             this.set_plane_position(kTempPos);
         }
 

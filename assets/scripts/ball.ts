@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Enum, Vec3, math } from "cc";
+import { _decorator, Component, Node, Enum, Vec3, math, Game } from "cc";
 import { Constants } from "./data/constants";
 import { CustomEventListener } from "./listener/custom_event_listener";
 import { BoardBasic } from "./board/board_basic";
@@ -69,28 +69,38 @@ export class Ball extends Component {
         const board_count = Constants.game.boardManager.get_board_list_count();
         for (let i = 0; i < board_count; ++i) {
             /** @type {Node} */
-            let board = Constants.game.boardManager.get_board_list_by_idx(i);
-            let x = Math.abs(this.node.position.x - board.position.x);
-            let y = this.node.position.y - board.position.y
+            let boardNode = Constants.game.boardManager.get_board_list_by_idx(i);
+            let x = Math.abs(this.node.position.x - boardNode.position.x);
+            let y = this.node.position.y - boardNode.position.y
             //let type = board.boardType;
-            let board2 = board.getComponent(BoardBasic);
+            let board = boardNode.getComponent(BoardBasic);
             // 落在板上了
             if (this.get_state() === Constants.BAll_STATE.FALLDOWN) {
-                if (x <= board2.get_radius()) {
+                if (x <= board.get_radius()) {
                     // 这里可能楼检测问题，因为下落一帧距离可能是0.8，而距离才是0.625，所以会穿过物体
                     // 解决
                     // 1. 下落状态检测
                     // 2. 使用绝对值
-                    if (Math.abs(y) <= (Constants.BALL_RADIUS + board2.getHeight() / 2)) {
+                    if (Math.abs(y) <= (Constants.BALL_RADIUS + board.getHeight() / 2)) {
                         this.change_state(Constants.BAll_STATE.JUMPUP);
                         // 板子
-                        board2.onBallCollideBoard();
+                        board.onBallCollideBoard();
+                        // 设置当前的板子
+                        Constants.game.boardManager.setCurrBoard(boardNode);
+                        //设置摄像机Y轴
+                        let pos = boardNode.position.clone();
+                        pos.y += Constants.CAMERA_OFFSET_Y;
+                        Constants.game.cameraManager.set_target_pos_Y(pos.y);
+                        // 
+                        Constants.game.boardManager.setCurrBoardIdx(boardNode);
                     }
                 }
             }
 
         }
     }
+
+
 }
 
 /** 

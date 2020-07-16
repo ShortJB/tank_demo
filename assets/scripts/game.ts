@@ -83,6 +83,7 @@ export class Game extends Component {
             this.tempPos.set(origin_pos.x + offsetX, origin_pos.y, origin_pos.z);
             this.ball.node.setPosition(this.tempPos);
             this.startX = this.moveX;
+            Constants.game.cameraManager.set_target_pos_X(this.tempPos.x);
         }
     }
 
