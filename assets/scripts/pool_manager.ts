@@ -4,12 +4,12 @@ const { ccclass, property } = _decorator;
 @ccclass("PoolManager")
 export class PoolManager {
     poolList_ = {};
-    static Instance_: PoolManager = null;
-    static get Instance() {
-        if (!this.Instance) {
-            this.Instance_ = new PoolManager();
+    static instance_: PoolManager = undefined;
+    static get instance() {
+        if (!this.instance_) {
+            this.instance_ = new PoolManager();
         }
-        return this.Instance_;
+        return this.instance_;
     }
 
     /**

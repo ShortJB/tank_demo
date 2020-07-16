@@ -1,7 +1,8 @@
-import { _decorator, Component, Node, Enum, Vec3, math, Game } from "cc";
+import { _decorator, Component, Node, Enum, Vec3, math, Game, Prefab, ParticleSystemComponent } from "cc";
 import { Constants } from "./data/constants";
 import { CustomEventListener } from "./listener/custom_event_listener";
 import { BoardBasic } from "./board/board_basic";
+import { PoolManager } from "./pool_manager";
 
 const { ccclass, property } = _decorator;
 
@@ -12,6 +13,12 @@ export class Ball extends Component {
     /** @type {Constants.BAll_STATE} - 当前状态 */
     private currentBallState = Constants.BAll_STATE.IDLE;
     private fsms_ = new Map<number, BallStateBase>();
+    
+    @property(Prefab)
+    trailPrefab: Prefab = null;
+
+    trailNode: Node = null;
+
     onLoad() {
         /** 添加一组状态 */
         this.currentBallState = Constants.BAll_STATE.IDLE;
@@ -21,13 +28,30 @@ export class Ball extends Component {
         this.fsms_[Constants.BAll_STATE.SPRINT] = new SprintState();
 
         CustomEventListener.on(Constants.EVENT_NAME.START_GAME, this.start_game, this);
+        this.trailNode = PoolManager.instance.get_node(this.trailPrefab, this.node);
+        this.playTrail();
         this.reset();
     }
 
     update() {
         this.fsms_[this.currentBallState].Update();
+        this.setTrailPos();
     }
 
+    /** 播放小球尾巴特性 */
+    playTrail(){
+        this.trailNode.active = true;
+        this.trailNode.getComponentInChildren(ParticleSystemComponent).play();
+    }
+
+    /** 设置小球尾巴特性位置 */
+    setTrailPos() {
+        //const pos = this.node.position;
+        //const pos = Constants.game.ball.node.position.clone();
+        const pos = new Vec3(0, 0, 0);
+        this.trailNode.setPosition(pos.x, pos.y - 0.1, pos.z);
+    }
+    
     /** 
      * 转换状态
      * @param {number} state - 来自：Constants.BAll_STATE
@@ -52,6 +76,7 @@ export class Ball extends Component {
         this.node.setPosition(kTempPos);
         this.node.eulerAngles = new Vec3();
         this.change_state(Constants.BAll_STATE.IDLE);
+        //this.playTrail();
     }
 
     revive() {

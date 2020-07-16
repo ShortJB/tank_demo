@@ -205,6 +205,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "trailPrefab": {
+      "__uuid__": "519290e7-9d06-4212-9d54-e28a7c2a6b05"
+    },
     "_id": ""
   },
   {
