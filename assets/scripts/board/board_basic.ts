@@ -27,6 +27,10 @@ export class BoardBasic extends Component {
     wave: Node = undefined;
     waveInner: Node = undefined;
 
+    onLoad() {
+        this.initWave();
+    }
+
     reuse(factory: boardFactory, board_type: number, pos: Vec3, level: number) {
         this.boardType = board_type;
         // 按概率来决定是否是移动板
@@ -44,6 +48,12 @@ export class BoardBasic extends Component {
         this.effectMove();
         this.effectBump();
         this.effectWave();
+    }
+
+    /**小球落在板子上 */
+    onBallCollideBoard() {
+        this.setBump();
+        this.setWave();
     }
 
     /** 跳板的半径 */
@@ -98,6 +108,7 @@ export class BoardBasic extends Component {
         this.node.setPosition(x, pos.y, pos.z);
     }
 
+
     /** 开始撞击 */
     setBump() {
         this.bumpFrame_ = 0;
@@ -125,10 +136,6 @@ export class BoardBasic extends Component {
     }
 
     setWave() {
-        if(!this.wave){
-            this.initWave();
-        }
-        
         if (this.boardType != Constants.BOARD_TYPE.BIG) {
             this.currWaveFrame = 0;
             const pos = this.node.position.clone();
@@ -150,10 +157,6 @@ export class BoardBasic extends Component {
 
     /** 板子波纹特效 */
     effectWave() {
-        if(!this.wave){
-            return;
-        }
-        
         if (this.currWaveFrame < Constants.BOARD_WAVE_FRAMES) {
             if (this.currWaveFrame >= Constants.BOARD_WAVE_INNER_START_FRAMES) {// 内层波纹
                 if (!this.waveInner.active) {

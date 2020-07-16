@@ -41,7 +41,7 @@ export class Constants {
     static game: Game;
     /** @property {Vec3} - 跳板初始化位置 */
     static BOARD_INIT_POS = new Vec3(0, 10, 0);
-    /** @property {number} - 球的半径 */
+    /** @property {number} - 球的半径 0.5*/
     static BALL_RADIUS = 0.5;
     /** @property {number} - 跳板的厚度 */
     static BOARD_HEIGTH = 0.25;
@@ -99,5 +99,12 @@ export class Constants {
 
     /** @property {number} Constants.COEFF_POS_BALL */
     static COEFF_POS_BALL = 8 / 360;
+
+    /** @property {number} Constants.BOARD_DROP_FRAMES - 掉落板下落帧数 */
+    static BOARD_DROP_FRAMES = 40;
+
+    /** @property {number} Constants.BOARD_DROP_STEP - 掉落板每帧下落距离 */
+    static BOARD_DROP_STEP = 0.5;
+
 
 }

@@ -25,7 +25,7 @@ export class BoardManager extends Component {
     onLoad() {
         let pos = Constants.BOARD_INIT_POS.clone();
         for (let i = 0; i < Constants.BOARD_NUM; ++i) {
-            let boardNode = this.boardFactory.create_board(Constants.BOARD_TYPE.NORMAL, pos, 0);
+            let boardNode = this.boardFactory.create_board(Constants.BOARD_TYPE.DROP, pos, 0);
             boardNode.parent = this.node.parent;
             boardNode.setPosition(pos);
             this.boardList_.push(boardNode);

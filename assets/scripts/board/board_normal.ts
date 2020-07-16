@@ -8,7 +8,7 @@ const { ccclass, property } = _decorator;
  */
 @ccclass("BoardNormal")
 export class BoardNormal extends BoardBasic {
-    onLoad() {
-        
-    }
+    // onLoad() {
+    //    super.onLoad(); 
+    // }
 }

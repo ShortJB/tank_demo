@@ -1,7 +1,6 @@
 import { _decorator, Component, Node, Enum, Vec3, math } from "cc";
 import { Constants } from "./data/constants";
 import { CustomEventListener } from "./listener/custom_event_listener";
-import { Board } from "./board";
 import { BoardBasic } from "./board/board_basic";
 
 const { ccclass, property } = _decorator;
@@ -39,6 +38,10 @@ export class Ball extends Component {
         this.fsms_[state].Enter();
     }
 
+    get_state() {
+        return this.currentBallState;
+    }
+
     /** 
      * 重现开始 
      * 设置小球开始位置
@@ -72,14 +75,20 @@ export class Ball extends Component {
             //let type = board.boardType;
             let board2 = board.getComponent(BoardBasic);
             // 落在板上了
-            if (x <= board2.get_radius()) {
-                if (y >= 0 && y <= (Constants.BALL_RADIUS + board2.getHeight() / 2)) {
-                    this.change_state(Constants.BAll_STATE.JUMPUP);
-                    // 板子
-                    board2.setBump();
-                    board2.setWave();
+            if (this.get_state() === Constants.BAll_STATE.FALLDOWN) {
+                if (x <= board2.get_radius()) {
+                    // 这里可能楼检测问题，因为下落一帧距离可能是0.8，而距离才是0.625，所以会穿过物体
+                    // 解决
+                    // 1. 下落状态检测
+                    // 2. 使用绝对值
+                    if (Math.abs(y) <= (Constants.BALL_RADIUS + board2.getHeight() / 2)) {
+                        this.change_state(Constants.BAll_STATE.JUMPUP);
+                        // 板子
+                        board2.onBallCollideBoard();
+                    }
                 }
             }
+
         }
     }
 }
