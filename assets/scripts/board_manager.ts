@@ -1,6 +1,5 @@
 import { _decorator, Component, Node, Prefab, instantiate, Vec3, random, CCObject } from "cc";
 import { Constants } from "./data/constants";
-import { Board } from "./board";
 import { utils } from "./utils/utils";
 import { PoolManager } from "./pool_manager";
 import { boardFactory } from "./board/board_factory";
@@ -19,13 +18,11 @@ export class BoardManager extends Component {
 
     @property(boardFactory)
     boardFactory: boardFactory = null;
-    
-    curBoard: Board = null;
 
     onLoad() {
         let pos = Constants.BOARD_INIT_POS.clone();
         for (let i = 0; i < Constants.BOARD_NUM; ++i) {
-            let boardNode = this.boardFactory.create_board(Constants.BOARD_TYPE.DROP, pos, 0);
+            let boardNode = this.boardFactory.create_board(Constants.BOARD_TYPE.SPRINT, pos, 0);
             boardNode.parent = this.node.parent;
             boardNode.setPosition(pos);
             this.boardList_.push(boardNode);

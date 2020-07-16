@@ -106,5 +106,15 @@ export class Constants {
     /** @property {number} Constants.BOARD_DROP_STEP - 掉落板每帧下落距离 */
     static BOARD_DROP_STEP = 0.5;
 
+    /** @property {number} Constants.BOARD_SPRING_FRAMES - 跳板的弹簧上升帧数 */
+    static BOARD_SPRING_FRAMES = 10;
+
+    /** 弹簧高度 */
+    static SPRING_HEIGHT = 0.2;
+    static SPRING_HELIX_STEP = 0.5;
+    static SPRING_HELIX_STEP_SPIRNT = 1.2;
+    static SPRING_TOP_STEP = 0.25;
+    static SPRING_TOP_STEP_SPRINT = 0.5;
+
 
 }
